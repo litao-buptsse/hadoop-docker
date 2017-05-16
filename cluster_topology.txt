@@ -1,5 +1,5 @@
 master1=rsync.litao.clouddev.sjs.ted
-master2=rsync.litao2.clouddev.sjs.ted
-master3=rsync.litao3.clouddev.sjs.ted
-master4=rsync.litao4.clouddev.sjs.ted
+master2=rsync.litao02.clouddev.sjs.ted
+master3=rsync.litao03.clouddev.sjs.ted
+master4=rsync.litao04.clouddev.sjs.ted
 slaves=rsync.litao.clouddev.sjs.ted,rsync.litao02.clouddev.sjs.ted,rsync.litao03.clouddev.sjs.ted,rsync.litao04.clouddev.sjs.ted

@@ -1,2 +1,8 @@
 /hadoop
-/*/hadoop
+/docker/.hadoop
+/conf/master1
+/conf/master2
+/conf/master3
+/conf/master4
+/conf/slave
+/conf/.master

@@ -19,19 +19,17 @@ git pull origin
 # mvn package -DskipTests -Pdist -Dtar
 popd
 
-version=`cat hadoop/pom.xml | grep version | grep cdh | awk -F">" '{print $2}' | awk -F"<" '{print $1}'`
 registry="docker.registry.clouddev.sogou:5000"
+image="hadoop/minicluster"
+version=`cat hadoop/pom.xml | grep version | grep cdh | awk -F">" '{print $2}' | awk -F"<" '{print $1}'`
 
 # build docker
-for module in hadoop-master hadoop-slave
-do
-  pushd $module
-  rm -fr hadoop
-  cp -r ../hadoop/hadoop-dist/target/hadoop-$version hadoop
-  image="hadoop/$module"
-  docker build -t $image:$version .
-  docker tag $image:$version $registry/$image:$version
-  docker push $registry/$image:$version
-  rm -fr hadoop
-  popd
-done
+pushd docker
+rm -fr .zookeeper .hadoop
+cp -r ../zookeeper .zookeeper
+cp -r ../hadoop/hadoop-dist/target/hadoop-$version .hadoop
+docker build -t $image:$version .
+docker tag $image:$version $registry/$image:$version
+docker push $registry/$image:$version
+rm -fr .zookeeper .hadoop
+popd

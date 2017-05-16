@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dataDir=/tmp/minicluster/data
-logDir=/tmp/minicluster/log
+logDir=/tmp/minicluster/logs
 
 host=`hostname`
 nodeType=`grep =$host cluster_topology.txt | grep ^master |  awk -F"=" '{print $1}'`
@@ -49,6 +49,6 @@ docker run -it \
   --net=host --rm \
   -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
   -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
-  -v $logDir:/search/log \
+  -v $logDir:/search/hadoop/logs \
   -v $dataDir:/search/data \
   docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version $startCommand

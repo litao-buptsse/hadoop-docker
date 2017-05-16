@@ -1,0 +1,2 @@
+masters=rsync.litao.clouddev.sjs.ted
+slaves=rsync.litao.clouddev.sjs.ted

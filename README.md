@@ -23,7 +23,7 @@
 | ---- | ----------- | ----------- | ------------ |
 | *    | DN          | NM          | RS           |
 
-## Initial Cluster
+## Initial Config
 
 ```
 # 1. edit cluster_topoly.txt
@@ -54,7 +54,7 @@
 ./run.sh datanode
 ```
 
-## Hadoop Client Access
+## Client Access
 
 ```
 # 1. login bash shell

@@ -14,5 +14,5 @@ while true; do
   if [ $ext -ne 0 ]; then
     exit $ext
   fi
-  sleep 30
+  sleep 5
 done

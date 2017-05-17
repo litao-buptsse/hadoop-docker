@@ -59,12 +59,12 @@ case $module in
     ;;
   zookeeper)
     if [ ! -f $dataDir/zookeeper/myid ]; then
-      myid=`echo master1 | awk -F"master" '{print $2}'`
+      myid=`echo $nodeType | awk -F"master" '{print $2}'`
       if [ X$myid != X ]; then
         echo $myid > $dataDir/zookeeper/myid
       fi
     fi
-    startCommand="/search/zookeeper/bin/zkServer.sh start"
+    startCommand="cd /search/zookeeper; bin/zkServer.sh start"
     pidfile="/search/data/zookeeper/zookeeper_server.pid"
     ;;
   *)

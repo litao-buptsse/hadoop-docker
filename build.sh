@@ -16,7 +16,7 @@ fi
 # pull latest, compile
 pushd hadoop
 git pull origin
-# mvn package -DskipTests -Pdist -Dtar
+mvn package -DskipTests -Pdist -Dtar
 popd
 
 registry="docker.registry.clouddev.sogou:5000"

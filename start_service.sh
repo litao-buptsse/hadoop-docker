@@ -59,6 +59,8 @@ esac
 mkdir -p $dataDir $logDir
 echo $startCommand
 
+docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
+
 if [ $module == "shell" ] || [ $module == "format" ]; then
   docker run -it \
     --net=host --rm \

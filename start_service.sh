@@ -34,6 +34,9 @@ case $module in
   format)
     startCommand="bin/hdfs namenode -format minicluster"
     ;;
+  bootstrapStandby)
+    startCommand="bin/hdfs namenode -bootstrapStandby"
+    ;;
   namenode)
     startCommand="sbin/hadoop-daemon.sh --config etc/hadoop --script hdfs start namenode"
     pidfile="/tmp/hadoop--namenode.pid"
@@ -61,7 +64,7 @@ echo $startCommand
 
 docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
 
-if [ $module == "shell" ] || [ $module == "format" ]; then
+if [ $module == "shell" ] || [ $module == "format" ] || [ $module == "bootstrapStandby" ]; then
   docker run -it \
     --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \

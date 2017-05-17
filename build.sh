@@ -28,6 +28,7 @@ pushd docker
 rm -fr .zookeeper .hadoop
 cp -r ../zookeeper .zookeeper
 cp -r ../hadoop/hadoop-dist/target/hadoop-$version .hadoop
+cp ../wait.sh .hadoop
 docker build -t $image:$version .
 docker tag $image:$version $registry/$image:$version
 docker push $registry/$image:$version

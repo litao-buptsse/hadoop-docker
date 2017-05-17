@@ -1,7 +1,7 @@
 #!/bin/bash
 
-dataDir=/tmp/minicluster/data
-logDir=/tmp/minicluster/logs
+dataDir=/search/ted/minicluster/data
+logDir=/search/ted/minicluster/logs
 
 host=`hostname`
 nodeType=`grep =$host cluster_topology.txt | grep ^master |  awk -F"=" '{print $1}'`
@@ -26,18 +26,29 @@ if [ $# -ge 2 ]; then
 fi
 
 startCommand=""
+pidfile=""
 case $module in
+  shell)
+    startCommand="/bin/bash"
+    ;;
+  format)
+    startCommand="bin/hdfs namenode -format minicluster"
+    ;;
   namenode)
     startCommand="sbin/hadoop-daemon.sh --config etc/hadoop --script hdfs start namenode"
+    pidfile="/tmp/hadoop--namenode.pid"
     ;;
   journalnode)
     startCommand="sbin/hadoop-daemon.sh --config etc/hadoop start journalnode"
+    pidfile="/tmp/hadoop--journalnode.pid"
     ;;
   zkfc)
     startCommand="sbin/hadoop-daemon.sh --config etc/hadoop --script hdfs start zkfc"
+    pidfile="/tmp/hadoop--zkfc.pid"
     ;;
   datanode)
     startCommand="sbin/hadoop-daemon.sh --config etc/hadoop --script hdfs start datanode"
+    pidfile="/tmp/hadoop--datanode.pid"
     ;;
   *)
     echo "no such module $module"
@@ -45,10 +56,24 @@ case $module in
     ;;
 esac
 
-docker run -it \
-  --net=host --rm \
-  -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
-  -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
-  -v $logDir:/search/hadoop/logs \
-  -v $dataDir:/search/data \
-  docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version $startCommand
+mkdir -p $dataDir $logDir
+echo $startCommand
+
+if [ $module == "shell" ] || [ $module == "format" ]; then
+  docker run -it \
+    --net=host --rm \
+    -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
+    -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
+    -v $logDir:/search/hadoop/logs \
+    -v $dataDir:/search/data \
+    docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version $startCommand
+else
+  startCommand="$startCommand && ./wait.sh $pidfile"
+  docker run -d \
+    --net=host --rm \
+    -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
+    -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
+    -v $logDir:/search/hadoop/logs \
+    -v $dataDir:/search/data \
+    docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version sh -c "$startCommand"
+fi

@@ -1,5 +1,6 @@
 /hadoop
 /docker/.hadoop
+/docker/.zookeeper
 /conf/master1
 /conf/master2
 /conf/master3

@@ -23,28 +23,28 @@
   </property>
 
   <property>
-    <name>fs.viewfs.mounttable.bigcluster.link./logdata</name>
-    <value>hdfs://nn1/logdata</value>
+    <name>fs.viewfs.mounttable.minicluster.link./logdata</name>
+    <value>hdfs://ns1/logdata</value>
   </property>
 
   <property>
-    <name>fs.viewfs.mounttable.bigcluster.link./user</name>
-    <value>hdfs://nn2/user</value>
+    <name>fs.viewfs.mounttable.minicluster.link./user</name>
+    <value>hdfs://ns2/user</value>
   </property>
 
   <property>
-    <name>fs.viewfs.mounttable.bigcluster.link./hbase</name>
-    <value>hdfs://nn2/hbase</value>
+    <name>fs.viewfs.mounttable.minicluster.link./hbase</name>
+    <value>hdfs://ns2/hbase</value>
   </property>
 
   <property>
-    <name>fs.viewfs.mounttable.bigcluster.link./tmp</name>
-    <value>hdfs://nn1/tmp</value>
+    <name>fs.viewfs.mounttable.minicluster.link./tmp</name>
+    <value>hdfs://ns1/tmp</value>
   </property>
 
   <property>
-    <name>fs.viewfs.mounttable.bigcluster.link./mr-history</name>
-    <value>hdfs://nn1/mr-history</value>
+    <name>fs.viewfs.mounttable.minicluster.link./mr-history</name>
+    <value>hdfs://ns1/mr-history</value>
   </property>
 
   <property>

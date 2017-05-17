@@ -1,7 +1,8 @@
 #!/bin/bash
 
-dataDir=/search/ted/minicluster/data
-logDir=/search/ted/minicluster/logs
+dir=`pwd`
+dataDir=$dir/data
+logDir=$dir/logs
 
 host=`hostname`
 nodeType=`grep =$host cluster_topology.txt | grep ^master |  awk -F"=" '{print $1}'`
@@ -14,16 +15,13 @@ if [ X$nodeType == X ]; then
 fi
 
 if [ $# -lt 1 ]; then
-  echo "$0 <module> [version]"
+  echo "$0 <module>"
   exit 1
 fi
 
 dir=`pwd`
-module=$1
+module=$1; shift
 version=2.6.0-cdh5.10.0
-if [ $# -ge 2 ]; then
-  version=$2
-fi
 
 startCommand=""
 pidfile=""
@@ -31,8 +29,11 @@ case $module in
   shell)
     startCommand="/bin/bash"
     ;;
+  hadoop)
+    startCommand="bin/hadoop $@"
+    ;;
   formatNamenode)
-    startCommand="bin/hdfs namenode -format minicluster"
+    startCommand="bin/hdfs namenode -format -clusterId CID-f5586ada-3a6e-4dce-a189-ac77374c1b48"
     ;;
   bootstrapStandby)
     startCommand="bin/hdfs namenode -bootstrapStandby"
@@ -83,7 +84,7 @@ if [ $module == "namenode" ] || [ $module == "journalnode" ] || \
    [ $module == "zookeeper" ]; then
   startCommand="$startCommand && /search/hadoop/wait.sh $pidfile"
   docker run -d \
-    --net=host --rm \
+    --name=$module --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
     -v $logDir:/search/hadoop/logs \
@@ -91,7 +92,7 @@ if [ $module == "namenode" ] || [ $module == "journalnode" ] || \
     docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version sh -c "$startCommand"
 else
   docker run -it \
-    --net=host --rm \
+    --name=$module --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
     -v $logDir:/search/hadoop/logs \

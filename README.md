@@ -1,4 +1,4 @@
-# Hadoop Docker
+# Hadoop Docker - Quick Setup Hadoop Cluster
 
 ## Build Docker
 
@@ -28,12 +28,39 @@
 ```
 # 1. edit cluster_topoly.txt
 
-# 2. run ./init_cluster.sh
-./init_cluster.sh
+# 2. run ./init.sh
+./init.sh
 ```
 
-## Start Service
+## Start Module
 
 ```
-# 1. start zk 
+# 1. start 3 jn
+./run.sh journalnode
+
+# 2. format namenode
+./run.sh formatNamenode
+
+# 3. start namenode
+./run.sh namenode
+
+# 4. format zkfc
+./run.sh formatZkfc
+
+# 5. start zkfc
+./run.sh zkfc
+
+# 6. start datanode
+./run.sh datanode
 ```
+
+## Hadoop Client Access
+
+```
+# 1. login bash shell
+./run.sh shell
+
+# 2. execute hadoop command
+./run.sh hadoop <command>
+```
+

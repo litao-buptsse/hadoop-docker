@@ -26,32 +26,50 @@
 ## Initial Config
 
 ```
-# 1. edit cluster_topoly.txt
+# 1. edit cluster_topoly.txt (masters, slaves)
 
-# 2. run ./init.sh
+# 2. run ./init.sh (masters, slaves)
 ./init.sh
 ```
 
 ## Start Module
 
 ```
-# 1. start 3 jn
+# 1. start zk (master1, master2, master3)
+./run.sh zookeeper
+
+# 2. start jn (master1, master2, master3)
 ./run.sh journalnode
 
-# 2. format namenode
+# 3. format namenode (master1, master3)
 ./run.sh formatNamenode
 
-# 3. start namenode
-./run.sh namenode
+# 4. bootstrap standby namenode (master2, master4)
+./run.sh bootstrapStandby
 
-# 4. format zkfc
+# 5. format zkfc (master1, master3)
 ./run.sh formatZkfc
 
-# 5. start zkfc
+# 6. start zkfc (master1, master2, master3, master4)
 ./run.sh zkfc
 
-# 6. start datanode
+# 7. start namenode (master1, master2, master3, master4)
+./run.sh namenode
+
+# 8. start datanode (slaves)
 ./run.sh datanode
+
+# 9. start resourcemanager (master1, master2)
+./run.sh resourcemanager
+
+# 10. start timelineserver (master3)
+./run.sh timelineserver
+
+# 11. start historyserver (master4)
+./run.sh historyserver
+
+# 12. start nodemanager (slaves)
+./run.sh nodemanager
 ```
 
 ## Client Access

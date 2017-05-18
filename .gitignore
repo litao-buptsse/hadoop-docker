@@ -7,3 +7,5 @@
 /conf/master4
 /conf/slave
 /conf/.master
+/data
+/logs

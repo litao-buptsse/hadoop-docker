@@ -35,11 +35,11 @@
   </property>
   <property>
     <name>yarn.resourcemanager.webapp.address.rm1</name>
-    <value>${master1}:8088</value>
+    <value>${master1}:23188</value>
   </property>
   <property>
     <name>yarn.resourcemanager.webapp.address.rm2</name>
-    <value>${master2}:8088</value>
+    <value>${master2}:23188</value>
   </property>
   <property>
     <name>yarn.resourcemanager.zk-address</name>

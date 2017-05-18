@@ -58,6 +58,14 @@ case $module in
     startCommand="sbin/hadoop-daemon.sh --config etc/hadoop --script hdfs start datanode"
     pidfile="/tmp/hadoop--datanode.pid"
     ;;
+  resourcemanager)
+    startCommand="sbin/yarn-daemon.sh --config etc/hadoop start resourcemanager"
+    pidfile="/tmp/yarn--resourcemanager.pid"
+    ;;
+  nodemanager)
+    startCommand="sbin/yarn-daemon.sh --config etc/hadoop start nodemanager"
+    pidfile="/tmp/yarn--nodemanager.pid"
+    ;;
   zookeeper)
     if [ ! -f $dataDir/zookeeper/myid ]; then
       myid=`echo $nodeType | awk -F"master" '{print $2}'`
@@ -79,9 +87,7 @@ echo $startCommand
 
 docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
 
-if [ $module == "namenode" ] || [ $module == "journalnode" ] || \
-   [ $module == "zkfc" ] || [ $module == "datanode" ] || \
-   [ $module == "zookeeper" ]; then
+if [ X$pidfile != X ]; then
   startCommand="$startCommand && /search/hadoop/wait.sh $pidfile"
   docker run -d \
     --name=$module --net=host --rm \

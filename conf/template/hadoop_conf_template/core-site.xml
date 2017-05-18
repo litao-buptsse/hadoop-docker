@@ -53,6 +53,26 @@
   </property>
 
   <property>
+    <name>hadoop.security.authentication</name>
+    <value>configfile</value>
+  </property>
+
+  <property>
+    <name>hadoop.security.auth.server.address</name>
+    <value>http://${master1}:50070,http://${master2}:50070,http://${master3}:50070,http://${master4}:50070</value>
+  </property>
+
+  <property>
+    <name>hadoop.security.group.mapping</name>
+    <value>org.apache.hadoop.security.ConfigBasedGroupMapping</value>
+  </property>
+
+  <property>
+    <name>user.info.file</name>
+    <value>/etc/hadoop/conf/user.info.properties</value>
+  </property>
+
+  <property>
     <name>fs.viewfs.rename-across-mount-point.enabled</name>
     <value>true</value>
   </property>

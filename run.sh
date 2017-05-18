@@ -66,6 +66,14 @@ case $module in
     startCommand="sbin/yarn-daemon.sh --config etc/hadoop start nodemanager"
     pidfile="/tmp/yarn--nodemanager.pid"
     ;;
+  timelineserver)
+    startCommand="sbin/yarn-daemon.sh --config etc/hadoop start timelineserver"
+    pidfile="/tmp/yarn--timelineserver.pid"
+    ;;
+  historyserver)
+    startCommand="sbin/mr-jobhistory-daemon.sh --config etc/hadoop start historyserver"
+    pidfile="/tmp/mapred--historyserver.pid"
+    ;;
   zookeeper)
     if [ ! -f $dataDir/zookeeper/myid ]; then
       myid=`echo $nodeType | awk -F"master" '{print $2}'`

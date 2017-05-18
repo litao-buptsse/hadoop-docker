@@ -80,5 +80,8 @@
 
 # 2. execute hadoop command
 ./run.sh hadoop <command>
+
+# 3. run mapreduce pi example
+./run.sh example
 ```
 

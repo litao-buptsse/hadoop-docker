@@ -32,6 +32,9 @@ case $module in
   hadoop)
     startCommand="bin/hadoop $@"
     ;;
+  example)
+    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0-cdh5.10.0.jar pi 3 4"
+    ;;
   formatNamenode)
     startCommand="bin/hdfs namenode -format -clusterId CID-f5586ada-3a6e-4dce-a189-ac77374c1b48"
     ;;

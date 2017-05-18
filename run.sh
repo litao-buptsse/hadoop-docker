@@ -98,6 +98,8 @@ echo $startCommand
 
 docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
 
+docker kill $module
+
 if [ X$pidfile != X ]; then
   startCommand="$startCommand && /search/hadoop/wait.sh $pidfile"
   docker run -d \

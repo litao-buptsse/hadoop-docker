@@ -43,6 +43,11 @@
   </property>
 
   <property>
+    <name>fs.viewfs.mounttable.minicluster.link./app-logs</name>
+    <value>hdfs://ns1/app-logs</value>
+  </property>
+
+  <property>
     <name>fs.viewfs.mounttable.minicluster.link./mr-history</name>
     <value>hdfs://ns1/mr-history</value>
   </property>

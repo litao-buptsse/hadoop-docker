@@ -44,31 +44,34 @@
 # 3. format namenode (master1, master3)
 ./run.sh formatNamenode
 
-# 4. bootstrap standby namenode (master2, master4)
-./run.sh bootstrapStandby
-
-# 5. format zkfc (master1, master3)
-./run.sh formatZkfc
-
-# 6. start zkfc (master1, master2, master3, master4)
-./run.sh zkfc
-
-# 7. start namenode (master1, master2, master3, master4)
+# 4. start active namenode (master1, master3)
 ./run.sh namenode
 
-# 8. start datanode (slaves)
+# 5. bootstrap standby namenode (master2, master4)
+./run.sh bootstrapStandby
+
+# 6. start standby namenode (master2, master4)
+./run.sh namenode
+
+# 7. format zkfc (master1, master3)
+./run.sh formatZkfc
+
+# 8. start zkfc (master1, master2, master3, master4)
+./run.sh zkfc
+
+# 9. start datanode (slaves)
 ./run.sh datanode
 
-# 9. start resourcemanager (master1, master2)
+# 10. start resourcemanager (master1, master2)
 ./run.sh resourcemanager
 
-# 10. start timelineserver (master3)
+# 11. start timelineserver (master3)
 ./run.sh timelineserver
 
-# 11. start historyserver (master4)
+# 12. start historyserver (master4)
 ./run.sh historyserver
 
-# 12. start nodemanager (slaves)
+# 13. start nodemanager (slaves)
 ./run.sh nodemanager
 ```
 

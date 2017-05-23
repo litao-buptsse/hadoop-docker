@@ -270,7 +270,7 @@
    
     <property>
       <name>dfs.namenode.shared.edits.dir</name>
-      <value>qjournal://${local.journalnode}/ns1</value>
+      <value>qjournal://${local.journalnode}/${namespace}</value>
     </property> 
   
     <property>

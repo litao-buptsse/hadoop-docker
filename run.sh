@@ -26,24 +26,45 @@ module=$1; shift
 
 startCommand=""
 pidfile=""
+ugiConfig=""
 case $module in
   shell)
     startCommand="/bin/bash"
+    nodeType="client"
+    ugiConfig="slave"
+    ;;
+  adminShell)
+    startCommand="/bin/bash"
+    nodeType="client"
+    ugiConfig="mapred"
     ;;
   hadoop)
     startCommand="bin/hadoop $@"
+    nodeType="client"
+    ugiConfig="slave"
+    ;;
+  adminHadoop)
+    startCommand="bin/hadoop $@"
+    nodeType="client"
+    ugiConfig="mapred"
     ;;
   hdfs)
     startCommand="bin/hdfs $@"
     ;;
   pi)
     startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 3 4"
+    nodeType="client"
+    ugiConfig="slave"
     ;;
   wordcount)
+    nodeType="client"
+    ugiConfig="slave"
     cp $dir/README.md $mntDir
+    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -mkdir -p hdfs://ns1/logdata
     ./run.sh 2.5.0-cdh5.3.2 hadoop fs -put -f /search/mnt/README.md /logdata
-    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -rm -r wordcount_output
-    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar wordcount /logdata/README.md wordcount_output"
+    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -mkdir -p hdfs://ns2/user/$ugiConfig
+    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -rm -r /user/$ugiConfig/wordcount_output
+    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar wordcount /logdata/README.md /user/$ugiConfig/wordcount_output"
     ;;
   formatNamenode)
     startCommand="bin/hdfs namenode -format -clusterId CID-f5586ada-3a6e-4dce-a189-ac77374c1b48"
@@ -129,22 +150,35 @@ docker ps --filter "name=$module" --format "{{.ID}}"  | xargs -r docker kill
 mkdir -p $dataDir $logDir $mntDir
 
 if [ X$pidfile != X ]; then
+  # type 1: deamon
   startCommand="$startCommand && /search/hadoop/wait.sh $pidfile"
   docker run -d \
     --name=$module --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
-    -v $logDir:/search/hadoop/logs \
+    -v $logDir:/var/log \
     -v $dataDir:/search/data \
     -v $mntDir:/search/mnt \
     docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version sh -c "$startCommand"
-else
+elif [ $nodeType != client ]; then
+  # type 2: command exec on server (no ugi_config file)
   docker run -it \
     --name=$module --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
-    -v $logDir:/search/hadoop/logs \
+    -v $logDir:/val/log \
     -v $dataDir:/search/data \
     -v $mntDir:/search/mnt \
+    docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version $startCommand
+else
+  # type 3: command exec on client (with ugi_config file)
+  docker run -it \
+    --name=$module --net=host --rm \
+    -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
+    -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
+    -v $logDir:/val/log \
+    -v $dataDir:/search/data \
+    -v $mntDir:/search/mnt \
+    -v $dir/conf/ugi_config/$ugiConfig:/root/ugi_config \
     docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version $startCommand
 fi

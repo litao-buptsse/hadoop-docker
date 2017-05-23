@@ -69,7 +69,7 @@
 
   <property>
     <name>user.info.file</name>
-    <value>/etc/hadoop/conf/user.info.properties</value>
+    <value>/search/hadoop/etc/hadoop/user.info.properties</value>
   </property>
 
   <property>

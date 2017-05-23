@@ -156,7 +156,7 @@ if [ X$pidfile != X ]; then
     --name=$module --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
-    -v $logDir:/var/log \
+    -v $logDir:/search/hadoop/logs \
     -v $dataDir:/search/data \
     -v $mntDir:/search/mnt \
     docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version sh -c "$startCommand"
@@ -166,7 +166,7 @@ elif [ $nodeType != client ]; then
     --name=$module --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
-    -v $logDir:/val/log \
+    -v $logDir:/search/hadoop/logs \
     -v $dataDir:/search/data \
     -v $mntDir:/search/mnt \
     docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version $startCommand
@@ -176,7 +176,7 @@ else
     --name=$module --net=host --rm \
     -v $dir/conf/$nodeType/hadoop_conf:/search/hadoop/etc/hadoop \
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
-    -v $logDir:/val/log \
+    -v $logDir:/search/hadoop/logs \
     -v $dataDir:/search/data \
     -v $mntDir:/search/mnt \
     -v $dir/conf/ugi_config/$ugiConfig:/root/ugi_config \

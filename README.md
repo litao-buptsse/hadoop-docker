@@ -1,5 +1,7 @@
 # Hadoop Docker - Quick Setup Hadoop Cluster
 
+[TOC]
+
 ## Build Docker
 
 ```
@@ -23,14 +25,19 @@
 | ---- | ----------- | ----------- | ------------ |
 | *    | DN          | NM          | RS           |
 
-## Initial Config
+
+
+## Create Cluster
+
+### Initial Config
 
 ```
-# edit cluster_topoly.txt (masters, slaves)
+# 1. config the cluster topology, conf/cluster_topoly.txt (masters, slaves)
 
+# 2. config the hadoop version, conf/VERSION (masters, slaves)
 ```
 
-## Start Module
+### Start Module
 
 ```
 # 1. start zk (master1, master2, master3)

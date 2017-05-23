@@ -26,10 +26,8 @@
 ## Initial Config
 
 ```
-# 1. edit cluster_topoly.txt (masters, slaves)
+# edit cluster_topoly.txt (masters, slaves)
 
-# 2. run ./init.sh (masters, slaves)
-./init.sh
 ```
 
 ## Start Module

@@ -23,6 +23,10 @@ dir=`pwd`
 module=$1; shift
 version=2.6.0-cdh5.10.0
 
+if [ -f conf/VERSION ]; then
+ version=`cat conf/VERSION`
+fi
+
 startCommand=""
 pidfile=""
 case $module in

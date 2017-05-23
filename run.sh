@@ -3,6 +3,7 @@
 dir=`pwd`
 dataDir=$dir/data
 logDir=$dir/logs
+mntDir=$dir/mnt
 
 host=`hostname`
 nodeType=`grep =$host conf/cluster_topology.txt | grep ^master |  awk -F"=" '{print $1}'`
@@ -35,8 +36,14 @@ case $module in
   hdfs)
     startCommand="bin/hdfs $@"
     ;;
-  example)
+  pi)
     startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 3 4"
+    ;;
+  wordcount)
+    cp $dir/README.md $mntDir
+    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -put -f /search/mnt/README.md /logdata
+    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -rm -r wordcount_output
+    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar wordcount /logdata/README.md wordcount_output"
     ;;
   formatNamenode)
     startCommand="bin/hdfs namenode -format -clusterId CID-f5586ada-3a6e-4dce-a189-ac77374c1b48"
@@ -119,8 +126,7 @@ docker ps --filter "name=$module" --format "{{.ID}}"  | xargs -r docker kill
 # init config file
 ./init.sh
 
-mkdir -p $dataDir $logDir
-
+mkdir -p $dataDir $logDir $mntDir
 
 if [ X$pidfile != X ]; then
   startCommand="$startCommand && /search/hadoop/wait.sh $pidfile"
@@ -130,6 +136,7 @@ if [ X$pidfile != X ]; then
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
     -v $logDir:/search/hadoop/logs \
     -v $dataDir:/search/data \
+    -v $mntDir:/search/mnt \
     docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version sh -c "$startCommand"
 else
   docker run -it \
@@ -138,5 +145,6 @@ else
     -v $dir/conf/$nodeType/zookeeper_conf:/search/zookeeper/conf \
     -v $logDir:/search/hadoop/logs \
     -v $dataDir:/search/data \
+    -v $mntDir:/search/mnt \
     docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version $startCommand
 fi

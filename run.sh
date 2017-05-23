@@ -14,18 +14,14 @@ if [ X$nodeType == X ]; then
   fi
 fi
 
-if [ $# -lt 1 ]; then
-  echo "$0 <module>"
+if [ $# -lt 2 ]; then
+  echo "$0 <version> <module>"
   exit 1
 fi
 
 dir=`pwd`
+version=$1; shift
 module=$1; shift
-version=2.6.0-cdh5.10.0
-
-if [ -f conf/VERSION ]; then
- version=`cat conf/VERSION`
-fi
 
 startCommand=""
 pidfile=""
@@ -98,6 +94,15 @@ case $module in
     fi
     startCommand="cd /search/zookeeper; bin/zkServer.sh start"
     pidfile="/search/data/zookeeper/zookeeper_server.pid"
+    ;;
+  shutdownAll)
+    service docker restart
+    exit
+    ;;
+  cleanAll)
+    service docker restart
+    rm -fr data logs
+    exit
     ;;
   *)
     echo "no such module $module"

@@ -203,10 +203,12 @@
       <value>0.0.0.0:8480</value>
     </property>
     
+<!--
     <property>
       <name>dfs.domain.socket.path</name>
       <value>/var/lib/hadoop-hdfs/dn_socket</value>
     </property>
+-->
     
     <property>
       <name>dfs.namenode.write.stale.datanode.ratio</name>

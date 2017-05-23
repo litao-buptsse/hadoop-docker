@@ -5,9 +5,9 @@ dataDir=$dir/data
 logDir=$dir/logs
 
 host=`hostname`
-nodeType=`grep =$host cluster_topology.txt | grep ^master |  awk -F"=" '{print $1}'`
+nodeType=`grep =$host conf/cluster_topology.txt | grep ^master |  awk -F"=" '{print $1}'`
 if [ X$nodeType == X ]; then
-  nodeType=`grep =$host cluster_topology.txt | grep ^slave |  awk -F"=" '{print $1}'`
+  nodeType=`grep =$host conf/cluster_topology.txt | grep ^slave |  awk -F"=" '{print $1}'`
   if [ X$nodeType == X ]; then
     echo "no such host in cluster_topology.txt"
     exit 1  

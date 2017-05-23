@@ -8,7 +8,7 @@ mkdir -p conf/.temp
 cp -r conf/template/hadoop_conf_template conf/.temp/hadoop_conf
 cp -r conf/template/zookeeper_conf_template conf/.temp/zookeeper_conf
 
-grep ^master cluster_topology.txt | while read line; do
+grep ^master conf/cluster_topology.txt | while read line; do
   master=`echo $line | awk -F"=" '{print $1}'`
   host=`echo $line | awk -F"=" '{print $2}'`
 

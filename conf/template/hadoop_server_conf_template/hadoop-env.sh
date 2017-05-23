@@ -31,18 +31,18 @@ export JMX_OPTS=" -Dcom.sun.management.jmxremote.authenticate=false \
 CURR_DATE=`date +%Y%m%d-%H%M%S`
 
 # Command specific options appended to HADOOP_OPTS when specified
-export HADOOP_NAMENODE_OPTS="$JMX_OPTS=10201 -Dcom.sun.management.jmxremote -Xmx95G -Xmn6G -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 $HADOOP_NAMENODE_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-namenode.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8002,server=y,suspend=n"
+export HADOOP_NAMENODE_OPTS="$JMX_OPTS=10201 -Dcom.sun.management.jmxremote -Xmx2G -Xmn500M -XX:+UseCMSInitiatingOccupancyOnly -XX:CMSInitiatingOccupancyFraction=75 $HADOOP_NAMENODE_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-namenode.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8002,server=y,suspend=n"
 export HADOOP_SECONDARYNAMENODE_OPTS="$JMX_OPTS=10202 -Dcom.sun.management.jmxremote -Xmx10G $HADOOP_SECONDARYNAMENODE_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-secondarynamenode.${CURR_DATE}.log"
-export HADOOP_DATANODE_OPTS="$JMX_OPTS=5203 -Dcom.sun.management.jmxremote -Xmx2G $HADOOP_DATANODE_OPTS $HADOOP_SERVERS_OPTS  -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$HADOOP_LOG_DIR/ -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-datanode.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8003,server=y,suspend=n"
+export HADOOP_DATANODE_OPTS="$JMX_OPTS=5203 -Dcom.sun.management.jmxremote -Xmx1G $HADOOP_DATANODE_OPTS $HADOOP_SERVERS_OPTS  -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$HADOOP_LOG_DIR/ -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-datanode.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8003,server=y,suspend=n"
 export HADOOP_BALANCER_OPTS="-Xmx2G -Dcom.sun.management.jmxremote $HADOOP_BALANCER_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-balancer.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8008,server=y,suspend=n"
 export HADOOP_JOBTRACKER_OPTS="$JMX_OPTS=10204 -Dcom.sun.management.jmxremote -Xmx50G -XX:NewSize=300M -XX:MaxNewSize=300M $HADOOP_JOBTRACKER_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-jobtracker.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8004,server=y,suspend=n"
 export HADOOP_TASKTRACKER_OPTS="$JMX_OPTS=6205"
 
-export HADOOP_JOB_HISTORYSERVER_OPTS="$JMX_OPTS=10206 -Dcom.sun.management.jmxremote -Xmx30G $HADOOP_JOB_HISTORYSERVER_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-jobhistoryserver.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8005,server=y,suspend=n"
+export HADOOP_JOB_HISTORYSERVER_OPTS="$JMX_OPTS=10206 -Dcom.sun.management.jmxremote -Xmx1G $HADOOP_JOB_HISTORYSERVER_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-jobhistoryserver.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8005,server=y,suspend=n"
 
-export HADOOP_ZKFC_OPTS="$JMX_OPTS=10208 -Dcom.sun.management.jmxremote -Xmx3G $HADOOP_ZKFC_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-zkfc.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8007,server=y,suspend=n"
+export HADOOP_ZKFC_OPTS="$JMX_OPTS=10208 -Dcom.sun.management.jmxremote -Xmx1G $HADOOP_ZKFC_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-zkfc.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8007,server=y,suspend=n"
 
-export HADOOP_JOURNALNODE_OPTS="$JMX_OPTS=10207 -Dcom.sun.management.jmxremote -Xmx6G $HADOOP_JOURNALNODE_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-journalnode.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8006,server=y,suspend=n"
+export HADOOP_JOURNALNODE_OPTS="$JMX_OPTS=10207 -Dcom.sun.management.jmxremote -Xmx1G $HADOOP_JOURNALNODE_OPTS $HADOOP_SERVERS_OPTS -Xloggc:$HADOOP_LOG_DIR/gc-hadoop-journalnode.${CURR_DATE}.log -agentlib:jdwp=transport=dt_socket,address=8006,server=y,suspend=n"
 
 # export HADOOP_TASKTRACKER_OPTS=
 # The following applies to multiple commands (fs, dfs, fsck, distcp etc)

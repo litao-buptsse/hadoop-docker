@@ -84,9 +84,9 @@ export JMX_OPTS=" -Dcom.sun.management.jmxremote.authenticate=false \
 
 CURR_DATE=`date +%Y%m%d-%H%M%S`
 
-export YARN_RESOURCEMANAGER_OPTS="$JMX_OPTS=10204 -Dcom.sun.management.jmxremote -Xmx50G -XX:NewSize=1000M -XX:MaxNewSize=1000M -XX:PermSize=256m -XX:MaxPermSize=256m $YARN_SERVERS_OPTS -Xloggc:$YARN_LOG_DIR/gc-yarn-resourcemanager.log.${CURR_DATE} -agentlib:jdwp=transport=dt_socket,address=8004,server=y,suspend=n"
-export YARN_NODEMANAGER_OPTS="$JMX_OPTS=6205 -Xmx4G -XX:PermSize=256m -XX:MaxPermSize=256m"
+export YARN_RESOURCEMANAGER_OPTS="$JMX_OPTS=10204 -Dcom.sun.management.jmxremote -Xmx2G -XX:NewSize=500M -XX:MaxNewSize=500M -XX:PermSize=256m -XX:MaxPermSize=256m $YARN_SERVERS_OPTS -Xloggc:$YARN_LOG_DIR/gc-yarn-resourcemanager.log.${CURR_DATE} -agentlib:jdwp=transport=dt_socket,address=8004,server=y,suspend=n"
+export YARN_NODEMANAGER_OPTS="$JMX_OPTS=6205 -Xmx1G -XX:PermSize=256m -XX:MaxPermSize=256m"
 
-export YARN_TIMELINESERVER_OPTS="-Xmx10G -XX:NewSize=300M -XX:MaxNewSize=300M $YARN_SERVERS_OPTS -Xloggc:$YARN_LOG_DIR/gc-yarn-timeline.log -agentlib:jdwp=transport=dt_socket,address=8005,server=y,suspend=n"
+export YARN_TIMELINESERVER_OPTS="-Xmx1G -XX:NewSize=300M -XX:MaxNewSize=300M $YARN_SERVERS_OPTS -Xloggc:$YARN_LOG_DIR/gc-yarn-timeline.log -agentlib:jdwp=transport=dt_socket,address=8005,server=y,suspend=n"
 
 export LANG=zh_CN.UTF-8

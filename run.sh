@@ -144,9 +144,6 @@ docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
 # kill running container
 docker ps --filter "name=$module" --format "{{.ID}}"  | xargs -r docker kill
 
-# init config file
-./init.sh
-
 mkdir -p $dataDir $logDir $mntDir
 
 if [ X$pidfile != X ]; then

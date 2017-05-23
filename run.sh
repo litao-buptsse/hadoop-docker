@@ -36,6 +36,9 @@ case $module in
   hadoop)
     startCommand="bin/hadoop $@"
     ;;
+  hdfs)
+    startCommand="bin/hdfs $@"
+    ;;
   example)
     startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 3 4"
     ;;
@@ -47,10 +50,9 @@ case $module in
     ;;
   formatZkfc)
     startCommand="bin/hdfs zkfc -formatZK"
-    pidfile="/tmp/hadoop--zkfc.pid"
     ;;
   namenode)
-    startCommand="sbin/hadoop-daemon.sh --config etc/hadoop --script hdfs start namenode"
+    startCommand="sbin/hadoop-daemon.sh --config etc/hadoop --script hdfs start namenode $@"
     pidfile="/tmp/hadoop--namenode.pid"
     ;;
   journalnode)

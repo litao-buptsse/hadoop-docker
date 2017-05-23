@@ -33,7 +33,7 @@ case $module in
     startCommand="bin/hadoop $@"
     ;;
   example)
-    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0-cdh5.10.0.jar pi 3 4"
+    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 3 4"
     ;;
   formatNamenode)
     startCommand="bin/hdfs namenode -format -clusterId CID-f5586ada-3a6e-4dce-a189-ac77374c1b48"
@@ -94,12 +94,13 @@ case $module in
     ;;
 esac
 
-mkdir -p $dataDir $logDir
-echo $startCommand
-
+# pull latest image
 docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
 
-docker kill $module
+# kill running container
+docker ps --filter "name=$module" --format "{{.ID}}"  | xargs -r docker kill
+
+mkdir -p $dataDir $logDir
 
 if [ X$pidfile != X ]; then
   startCommand="$startCommand && /search/hadoop/wait.sh $pidfile"

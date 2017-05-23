@@ -78,6 +78,7 @@ case $module in
     pidfile="/tmp/mapred--historyserver.pid"
     ;;
   zookeeper)
+    mkdir -p $dataDir/zookeeper
     if [ ! -f $dataDir/zookeeper/myid ]; then
       myid=`echo $nodeType | awk -F"master" '{print $2}'`
       if [ X$myid != X ]; then

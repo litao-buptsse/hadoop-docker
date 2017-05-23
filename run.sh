@@ -74,6 +74,11 @@ case $module in
     pidfile="/tmp/yarn--nodemanager.pid"
     ;;
   timelineserver)
+    exist=`./run.sh hadoop fs -ls hdfs://ns1/ | grep "/app-logs" | wc -l`
+    if [ $exist -eq 0 ]; then
+      ./run.sh hadoop fs -mkdir -p hdfs://ns1/app-logs
+      ./run.sh hadoop fs -chmod -R 777 hdfs://ns1/app-logs
+    fi
     startCommand="sbin/yarn-daemon.sh --config etc/hadoop start timelineserver"
     pidfile="/tmp/yarn--timelineserver.pid"
     ;;

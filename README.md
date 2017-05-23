@@ -80,6 +80,50 @@
 ./run.sh nodemanager
 ```
 
+## Rolling Upgrade
+
+### Initial Config
+
+```
+# config the new hadoop version, conf/VERSION (masters, slaves)
+```
+
+### Upgrade HDFS NameNode
+
+```
+# 1. 升级第一组HDFS NameNode
+## 1.1 创建rollback fsimage
+./run.sh hdfs dfsadmin -Dfs.defaultFS=hdfs://ns1 -rollingUpgrade prepare (client)
+## 1.2 查询状态，直至出现"Proceed with rolling upgrade"，表明rollback fsimage创建完毕
+./run.sh hdfs dfsadmin -Dfs.defaultFS=hdfs://ns1 -rollingUpgrade query (client)
+## 1.3 停掉Standby NameNode，更新至新版本，使用-rollingUpgrade started选项重启 (注：在第一步Initial Config中，已经更新过VERSION文件；./run.sh namenode会首先kill掉当前namenode，然后拉去VERSION文件所配hadoop版本的最新docker镜像，然后启动NameNode)
+./run.sh namenode -rollingUpgrade started (master2)
+## 1.4 从Standby至Active做一次Failover切换，停掉Active NameNode，更新至新版本，使用-rollingUpgrade started选项重启
+./run.sh namenode -rollingUpgrade started (master1)
+
+# 2. 同理，升级第二组HDFS NameNode
+```
+
+### Upgrade HDFS DataNode
+
+```
+1. 选取一台DataNode节点
+## 1.1 使用hdfs dfsadmin -shutdownDatanode停掉DataNode
+./run.sh hdfs dfsadmin -shutdownDatanode <DATANODE_HOST:50010> upgrade
+## 1.2 使用hdfs dfsadmin -getDatanodeInfo检测DataNode已经停掉
+./run.sh hdfs dfsadmin -getDatanodeInfo <DATANODE_HOST:50010>
+## 1.3 停掉DataNode，更新至新版本,并重新启动
+./run.sh datanode
+
+2. 逐步扩大DataNode升级范围直至全部升级完毕
+```
+
+### Finalize Rolling Upgrade
+
+```
+./run.sh hdfs dfsadmin -rollingUpgrade finalize"
+```
+
 ## Client Access
 
 ```

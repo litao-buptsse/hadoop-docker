@@ -124,6 +124,9 @@ esac
 # pull latest image
 docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
 
+# init config
+./init.sh
+
 # kill running container
 docker ps --filter "name=$module" --format "{{.ID}}"  | xargs -r docker kill
 

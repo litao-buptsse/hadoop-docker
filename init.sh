@@ -1,7 +1,5 @@
 #!/bin/bash
 
-rm -fr conf/master*
-rm -fr conf/slave
 rm -fr conf/client
 rm -fr conf/.temp
 
@@ -23,7 +21,10 @@ grep ^master conf/cluster_topology.txt | while read line; do
 done
 
 for master in master1 master2 master3 master4; do
-  cp -r conf/.temp conf/$master 
+  mkdir -p conf/$master/hadoop_conf; rm -fr conf/$master/hadoop_conf/*
+  mkdir -p conf/$master/zookeeper_conf; rm -fr conf/$master/zookeeper_conf/*
+  cp -r conf/.temp/hadoop_conf/* conf/$master/hadoop_conf
+  cp -r conf/.temp/zookeeper_conf/* conf/$master/zookeeper_conf
 done
 
 for master in master1 master2; do
@@ -33,6 +34,9 @@ for master in master3 master4; do
   sed -i "s/\${namespace}/ns2/g" conf/$master/hadoop_conf/hdfs-site.xml
 done
 
-cp -r conf/master1 conf/slave
+mkdir -p conf/slave/hadoop_conf; rm -fr conf/slave/hadoop_conf/*
+mkdir -p conf/slave/zookeeper_conf; rm -fr conf/slave/zookeeper_conf/*
+cp -r conf/master1/hadoop_conf/* conf/slave/hadoop_conf
+cp -r conf/master1/zookeeper_conf/* conf/slave/zookeeper_conf
 
 rm -fr conf/.temp

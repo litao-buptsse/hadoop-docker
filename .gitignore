@@ -7,6 +7,9 @@
 /conf/master4
 /conf/slave
 /conf/.master
+/conf/client
 /data
 /logs
 /mnt
+/conf/template/hadoop_server_conf_template_bak
+/conf/template/hadoop_client_conf_template_bak

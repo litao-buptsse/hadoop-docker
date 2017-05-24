@@ -18,10 +18,6 @@
 
 <configuration>
   <property>
-    <name>hadoop.client.ugi</name>
-    <value>mapred,mapredpassword181</value>
-  </property>
-  <property>
     <name>mapreduce.framework.name</name>
     <value>yarn</value>
   </property>

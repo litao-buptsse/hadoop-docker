@@ -151,9 +151,4 @@
     <name>yarn.log.server.url</name>
     <value>http://${master3}:19888/jobhistory/logs</value>
   </property>
-
-    <property>
-      <name>hadoop.client.ugi</name>
-      <value>mapred,mapredpassword181</value>
-    </property>
 </configuration>

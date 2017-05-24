@@ -1,5 +1,20 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
 
 <configuration>
   <property>
@@ -7,49 +22,23 @@
     <value>yarn</value>
   </property>
   <property>
-    <name>mapreduce.jobhistory.address</name>
-    <value>${local.jobhistory}:10020</value>
-  </property>
-  <property>
     <name>mapreduce.jobhistory.intermediate-done-dir</name>
     <value>/mr-history/tmp</value>
   </property>
-
   <property>
-     <name>mapreduce.job.split.metainfo.maxsize</name>
-     <value>100000000</value>
-  </property>
-
+    <name>yarn.app.mapreduce.am.staging-dir</name>
+    <value>/mr-history/am-staging</value>
+    </property>
   <property>
-     <name>mapreduce.fileoutputcommitter.algorithm.version</name>
-     <value>2</value>
+    <name>mapreduce.jobhistory.done-dir</name>
+    <value>/mr-history/done</value>
   </property>
   <property>
-     <name>mapreduce.task.userlog.limit.kb</name>
-     <value>52400</value>
+    <name>mapreduce.jobhistory.address</name>
+    <value>${master4}:10020</value>
   </property>
   <property>
-     <name>yarn.app.mapreduce.am.container.log.limit.kb</name>
-     <value>52400</value>
-  </property>
-
-  <property>
-     <name>yarn.app.mapreduce.task.container.log.backups</name>
-     <value>2</value>
-  </property>
-
-  <property>
-     <name>yarn.app.mapreduce.am.container.log.backups</name>
-     <value>2</value>
-  </property>
-
-  <property>
-     <name>mapreduce.job.reduce.slowstart.completedmaps</name>
-     <value>0.99</value>
-  </property>
-
-  <property>
-    <name>hadoop.client.ugi</name>
-    <value>ugi_config</value>
+    <name>mapreduce.jobhistory.webapp.address</name>
+    <value>${master4}:19888</value>
   </property>
 </configuration>

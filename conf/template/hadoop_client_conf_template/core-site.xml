@@ -1,150 +1,59 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-  <property>
-    <name>local.resourcemanager</name>
-    <value>${master1}</value>
-  </property>
-
-  <property>
-    <name>local.resourcemanager2</name>
-    <value>${master2}</value>
-  </property>
-                   
-  <property>
-    <name>local.jobhistory</name>
-    <value>${master4}</value>
-  </property>
-
   <property>
     <name>fs.defaultFS</name>
     <value>viewfs://minicluster</value>
   </property>
 
   <property>
-       <name>fs.viewfs.mounttable.minicluster.link./app-logs</name>
-       <value>hdfs://ns1/app-logs</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./apps</name>
-       <value>hdfs://ns1/apps</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./cloud</name>
-       <value>hdfs://ns1/cloud</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./ime</name>
-       <value>hdfs://ns1/ime</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./lib</name>
-       <value>hdfs://ns1/lib</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./logdata</name>
-       <value>hdfs://ns1/logdata</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./mapred</name>
-       <value>hdfs://ns1/mapred</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./mr-history</name>
-       <value>hdfs://ns1/mr-history</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./storage</name>
-       <value>hdfs://ns1/storage</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./tmp</name>
-       <value>hdfs://ns1/tmp</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./user</name>
-       <value>hdfs://ns2/user</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./root</name>
-       <value>hdfs://ns1/root</value>
-    </property>
-
-    <property>
-       <name>fs.viewfs.mounttable.minicluster.link./hbase2</name>
-       <value>hdfs://ns1/hbase2</value>
-    </property>
-                      
-  <property>
-    <name>ha.zookeeper.quorum</name>
-    <value>${master1},${master2},${master3}</value>
-  </property>
-                          
-  <property>
-    <name>hadoop.security.auth.server.address</name>
-    <value>http://${master1}:50070,http://${master2}:50070,http://${master3}:50070,http://${master4}:50070</value>
+    <name>fs.viewfs.mounttable.minicluster.link./logdata</name>
+    <value>hdfs://ns1/logdata</value>
   </property>
 
   <property>
-    <name>hadoop.security.authentication</name>
-    <value>configfile</value>
+    <name>fs.viewfs.mounttable.minicluster.link./user</name>
+    <value>hdfs://ns2/user</value>
   </property>
 
   <property>
-    <name>hadoop.security.authorization</name>
-    <value>false</value>
-  </property>
-                      
-  <property>
-    <name>hadoop.security.auth_to_local</name>
-    <value>
-      RULE:[2:$1@$0]([rn]m@.*)s/.*/yarn/
-      RULE:[2:$1@$0](jhs@.*)s/.*/mapred/
-      RULE:[2:$1@$0]([nd]n@.*)s/.*/hdfs/
-      RULE:[2:$1@$0](hm@.*)s/.*/hbase/
-      RULE:[2:$1@$0](rs@.*)s/.*/hbase/
-      DEFAULT</value>
-  </property>
-                                                                      
-  <property>
-    <name>io.serializations</name>
-    <value>org.apache.hadoop.io.serializer.WritableSerialization</value>
-  </property>
-                      
-  <property>
-    <name>io.compression.codecs</name>
-    <value>org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.BZip2Codec,com.hadoop.compression.lzo.LzoCodec,com.hadoop.compression.lzo.LzopCodec</value>
+    <name>fs.viewfs.mounttable.minicluster.link./hbase</name>
+    <value>hdfs://ns2/hbase</value>
   </property>
 
   <property>
-    <name>io.compression.codec.lzo.class</name>
-    <value>com.hadoop.compression.lzo.LzoCodec</value>
-  </property> 
+    <name>fs.viewfs.mounttable.minicluster.link./tmp</name>
+    <value>hdfs://ns1/tmp</value>
+  </property>
 
   <property>
-    <name>io.file.buffer.size</name>
-    <value>131072</value>
+    <name>fs.viewfs.mounttable.minicluster.link./app-logs</name>
+    <value>hdfs://ns1/app-logs</value>
   </property>
-                     
+
   <property>
-    <name>sogou.uigs.isnewapi</name>
-    <value>true</value>
+    <name>fs.viewfs.mounttable.minicluster.link./mr-history</name>
+    <value>hdfs://ns1/mr-history</value>
   </property>
-   <property>
+
+  <property>
     <name>fs.viewfs.rename-across-mount-point.enabled</name>
     <value>true</value>
   </property>
-                     
 </configuration>

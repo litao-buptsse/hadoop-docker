@@ -101,9 +101,4 @@
     <name>dfs.datanode.data.dir</name>
     <value>file:///search/data/dfs_data</value>
   </property>
-
-    <property>
-      <name>hadoop.client.ugi</name>
-      <value>mapred,mapredpassword181</value>
-    </property>
 </configuration>

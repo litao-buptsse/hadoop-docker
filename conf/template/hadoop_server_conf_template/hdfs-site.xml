@@ -104,6 +104,6 @@
 
     <property>
       <name>hadoop.client.ugi</name>
-      <value>hdfs,hdfspassword180</value>
+      <value>mapred,mapredpassword181</value>
     </property>
 </configuration>

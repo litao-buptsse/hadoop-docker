@@ -154,6 +154,6 @@
 
     <property>
       <name>hadoop.client.ugi</name>
-      <value>yarn,yarnpassword184</value>
+      <value>mapred,mapredpassword181</value>
     </property>
 </configuration>

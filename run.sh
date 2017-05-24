@@ -102,8 +102,8 @@ case $module in
   timelineserver)
     exist=`./run.sh hadoop fs -ls hdfs://ns1/ | grep "/app-logs" | wc -l`
     if [ $exist -eq 0 ]; then
-      ./run.sh hadoop 2.5.0-cdh5.3.2 fs -mkdir -p hdfs://ns1/app-logs
-      ./run.sh hadoop 2.5.0-cdh5.3.2 fs -chmod -R 777 hdfs://ns1/app-logs
+      ./run.sh 2.5.0-cdh5.3.2 adminHadoop fs -mkdir -p hdfs://ns1/app-logs
+      ./run.sh 2.5.0-cdh5.3.2 adminHadoop fs -chmod -R 777 hdfs://ns1/app-logs
     fi
     startCommand="sbin/yarn-daemon.sh --config etc/hadoop start timelineserver"
     pidfile="/tmp/yarn--timelineserver.pid"

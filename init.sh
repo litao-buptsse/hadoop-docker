@@ -1,13 +1,14 @@
 #!/bin/bash
 
-rm -fr conf/client
-rm -fr conf/.temp
+mkdir -p conf/client/hadoop_conf; rm -fr conf/client/hadoop_conf/*
+mkdir -p conf/client/zookeeper_conf; rm -fr conf/client/zookeeper_conf/*
+cp -r conf/template/hadoop_client_conf_template/* conf/client/hadoop_conf
+cp -r conf/template/zookeeper_conf_template/* conf/client/zookeeper_conf
 
-mkdir -p conf/.temp conf/client
+rm -fr conf/.temp
+mkdir -p conf/.temp
 cp -r conf/template/hadoop_server_conf_template conf/.temp/hadoop_conf
 cp -r conf/template/zookeeper_conf_template conf/.temp/zookeeper_conf
-cp -r conf/template/hadoop_client_conf_template conf/client/hadoop_conf
-cp -r conf/template/zookeeper_conf_template conf/client/zookeeper_conf
 
 grep ^master conf/cluster_topology.txt | while read line; do
   master=`echo $line | awk -F"=" '{print $1}'`

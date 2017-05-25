@@ -157,7 +157,7 @@
   <!-- RM Restart -->
   <property>
    <name>yarn.resourcemanager.recovery.enabled</name>
-   <value>false</value>
+   <value>true</value>
  </property>
  <property>
    <name>yarn.resourcemanager.work-preserving-recovery.enabled</name>
@@ -173,6 +173,6 @@
  </property>
  <property>
    <name>yarn.resourcemanager.zk-state-store.parent-path</name>
-   <value>/minicluster-rmstore</value>
+   <value>/minicluster</value>
  </property>
 </configuration>

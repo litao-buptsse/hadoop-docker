@@ -42,6 +42,10 @@ case $module in
     startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 3 4"
     nodeType="client"
     ;;
+  bigPi)
+    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 300 40"
+    nodeType="client"
+    ;;
   wordcount)
     nodeType="client"
     cp $dir/README.md $mntDir

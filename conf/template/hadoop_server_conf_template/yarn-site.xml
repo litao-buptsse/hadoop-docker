@@ -161,7 +161,7 @@
  </property>
  <property>
    <name>yarn.resourcemanager.work-preserving-recovery.enabled</name>
-   <value>true</value>
+   <value>false</value>
  </property>
  <property>
    <name>yarn.resourcemanager.store.class</name>

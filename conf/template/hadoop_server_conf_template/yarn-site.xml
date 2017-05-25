@@ -156,23 +156,33 @@
 
   <!-- RM Restart -->
   <property>
-   <name>yarn.resourcemanager.recovery.enabled</name>
-   <value>true</value>
- </property>
- <property>
-   <name>yarn.resourcemanager.work-preserving-recovery.enabled</name>
-   <value>true</value>
- </property>
- <property>
-   <name>yarn.resourcemanager.store.class</name>
-   <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
- </property>
- <property>
-   <name>yarn.resourcemanager.zk-address</name>
-   <value>${master1}:2181,${master2}:2181,${master3}:2181</value>
- </property>
- <property>
-   <name>yarn.resourcemanager.zk-state-store.parent-path</name>
-   <value>/minicluster2</value>
- </property>
+    <name>yarn.resourcemanager.recovery.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.work-preserving-recovery.enabled</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.store.class</name>
+    <value>org.apache.hadoop.yarn.server.resourcemanager.recovery.ZKRMStateStore</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.zk-address</name>
+    <value>${master1}:2181,${master2}:2181,${master3}:2181</value>
+  </property>
+  <property>
+    <name>yarn.resourcemanager.zk-state-store.parent-path</name>
+    <value>/minicluster2</value>
+  </property>
+
+  <!-- NM Restart -->
+  <property>
+    <name>yarn.nodemanager.recovery.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.recovery.dir</name>
+    <value>/search/data/recovery</value>
+  </property>
 </configuration>

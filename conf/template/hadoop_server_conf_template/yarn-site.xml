@@ -185,4 +185,10 @@
     <name>yarn.nodemanager.recovery.dir</name>
     <value>/search/data/recovery</value>
   </property>
+
+  <!-- AM Config -->
+  <property>
+    <name>yarn.resourcemanager.am.max-attempts</name>
+    <value>10</value>
+  </property>
 </configuration>

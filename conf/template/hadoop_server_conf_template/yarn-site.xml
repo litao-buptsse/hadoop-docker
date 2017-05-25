@@ -173,6 +173,6 @@
  </property>
  <property>
    <name>yarn.resourcemanager.zk-state-store.parent-path</name>
-   <value>/minicluster</value>
+   <value>/minicluster2</value>
  </property>
 </configuration>

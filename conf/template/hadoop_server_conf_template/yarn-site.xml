@@ -191,4 +191,10 @@
     <name>yarn.resourcemanager.am.max-attempts</name>
     <value>10</value>
   </property>
+
+  <!-- NM Cleanup -->
+  <property>
+    <name>yarn.nodemanager.delete.debug-delay-sec</name>
+    <value>3600</value>
+  </property>
 </configuration>

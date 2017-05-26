@@ -46,4 +46,9 @@
     <name>mapreduce.task.userlog.limit.kb</name>
     <value>52400</value>
   </property>
+
+    <property>
+      <name>mapreduce.application.classpath</name>
+      <value>/search/hadoop/share/hadoop/mapreduce/*,/search/hadoop/share/hadoop/mapreduce/lib/*</value>
+    </property>
 </configuration>

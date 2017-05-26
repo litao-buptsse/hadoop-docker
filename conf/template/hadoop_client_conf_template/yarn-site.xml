@@ -197,4 +197,10 @@
     <name>yarn.nodemanager.delete.debug-delay-sec</name>
     <value>3600</value>
   </property>
+
+  <!-- Container Config -->
+  <property>
+    <name>yarn.application.classpath</name>
+    <value>/search/hadoop/etc/hadoop,/search/hadoop/share/hadoop/common/*,/search/hadoop/share/hadoop/common/lib/*,/search/hadoop/share/hadoop/hdfs/*,/search/hadoop/share/hadoop/hdfs/lib/*,/search/hadoop/share/hadoop/yarn/*,/search/hadoop/share/hadoop/yarn/lib/*,/search/hadoop/share/hadoop/mapreduce/*,/search/hadoop/share/hadoop/mapreduce/lib/*,/usr/lib/hbase/*,/etc/hbase/conf,/usr/lib/hbase/lib/*</value>
+  </property>
 </configuration>

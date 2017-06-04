@@ -28,7 +28,7 @@
 1. ./run.sh 2.5.0-cdh5.3.2 resourcemanager (master1, master2)
 2. ./run.sh 2.5.0-cdh5.3.2 timelineserver (master3)
 3. ./run.sh 2.5.0-cdh5.3.2 historyserver (master4)
-4. /run.sh 2.5.0-cdh5.3.2 nodemanager (slaves)
+4. ./run.sh 2.5.0-cdh5.3.2 nodemanager (slaves)
 
 ### 测试点
 1. 跑通MapReduce Example (cdh5.3.2客户端)

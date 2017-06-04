@@ -49,8 +49,8 @@ case $module in
   wordcount)
     nodeType="client"
     cp $dir/README.md $mntDir
-    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -put -f /search/mnt/README.md README.md
-    ./run.sh 2.5.0-cdh5.3.2 hadoop fs -rm -r wordcount_output
+    ./run.sh $version hadoop fs -put -f /search/mnt/README.md README.md
+    ./run.sh $version hadoop fs -rm -r wordcount_output
     startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar wordcount README.md wordcount_output"
     ;;
   formatNamenode)
@@ -89,8 +89,8 @@ case $module in
   timelineserver)
     exist=`./run.sh hadoop fs -ls hdfs://ns1/ | grep "/app-logs" | wc -l`
     if [ $exist -eq 0 ]; then
-      ./run.sh 2.5.0-cdh5.3.2 adminHadoop fs -mkdir -p hdfs://ns1/app-logs
-      ./run.sh 2.5.0-cdh5.3.2 adminHadoop fs -chmod -R 777 hdfs://ns1/app-logs
+      ./run.sh $version hadoop fs -mkdir -p hdfs://ns1/app-logs
+      ./run.sh $version hadoop fs -chmod -R 777 hdfs://ns1/app-logs
     fi
     startCommand="sbin/yarn-daemon.sh --config etc/hadoop start timelineserver"
     pidfile="/tmp/yarn--timelineserver.pid"

@@ -131,12 +131,13 @@ docker pull docker.registry.clouddev.sogou:5000/hadoop/minicluster:$version
 # init config
 ./init.sh
 
-# kill running container
-docker ps --filter "name=$module" --format "{{.ID}}"  | xargs -r docker kill
 
 mkdir -p $dataDir $logDir $mntDir
 
 if [ X$pidfile != X ]; then
+  # kill running container
+  docker ps --filter "name=$module" --format "{{.ID}}"  | xargs -r docker kill
+
   startCommand="$startCommand && /search/hadoop/wait.sh $pidfile"
   docker run -d \
     --name=$module --net=host --rm \

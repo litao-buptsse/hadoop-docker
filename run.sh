@@ -43,7 +43,7 @@ case $module in
     nodeType="client"
     ;;
   bigPi)
-    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 300 40"
+    startCommand="bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-${version}.jar pi 3000 100"
     nodeType="client"
     ;;
   wordcount)

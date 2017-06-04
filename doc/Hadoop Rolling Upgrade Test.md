@@ -96,7 +96,8 @@
 ## 7. 提交更新
 
 ### 步骤
-1. ./run.sh 2.6.0-cdh5.10.0 hdfs dfsadmin -rollingUpgrade finalize
+1. ./run.sh 2.6.0-cdh5.10.0 hdfs dfsadmin -Dfs.defaultFS=hdfs://ns1 -rollingUpgrade finalize
+2. ./run.sh 2.6.0-cdh5.10.0 hdfs dfsadmin -Dfs.defaultFS=hdfs://ns2 -rollingUpgrade finalize
 
 ### 测试点
 1. hdfs基本操作执行成功 (cdh5.3.2与cdh5.10.0客户端)

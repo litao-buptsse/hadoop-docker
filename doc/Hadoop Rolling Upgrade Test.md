@@ -9,11 +9,12 @@
 2. ./run.sh 2.5.0-cdh5.3.2 journalnode (master1, master2, master3)
 3. ./run.sh 2.5.0-cdh5.3.2 formatNamenode (master1, master3)
 4. ./run.sh 2.5.0-cdh5.3.2 namenode (master1, master3)
-5. ./run.sh 2.5.0-cdh5.3.2 bootstrapStandby (master2, master4)
-6. ./run.sh 2.5.0-cdh5.3.2 namenode (master2, master4)
-7. ./run.sh 2.5.0-cdh5.3.2 formatZkfc (master1, master3)
-8. ./run.sh 2.5.0-cdh5.3.2 zkfc (master1, master2, master3, master4)
-9. ./run.sh 2.5.0-cdh5.3.2 datanode (slaves)
+5. ​
+6. ./run.sh 2.5.0-cdh5.3.2 bootstrapStandby (master2, master4)
+7. ./run.sh 2.5.0-cdh5.3.2 namenode (master2, master4)
+8. ./run.sh 2.5.0-cdh5.3.2 formatZkfc (master1, master3)
+9. ./run.sh 2.5.0-cdh5.3.2 zkfc (master1, master2, master3, master4)
+10. ./run.sh 2.5.0-cdh5.3.2 datanode (slaves)
 
 ### 测试点
 1. 测试HDFS基本的操作 (cdh5.3.2客户端)
@@ -57,8 +58,8 @@
 ## 3. 升级2台Slave节点的DataNode和NodeManager
 
 ### 步骤
-1. ./run.sh 2.5.0-cdh5.3.2 hdfs dfsadmin -shutdownDatanode <DATANODE_HOST:50020> upgrade (停掉Datanode)
-2. ./run.sh 2.5.0-cdh5.3.2 hdfs dfsadmin -getDatanodeInfo <DATANODE_HOST:50020> (确保DataNode停掉)
+1. ./run.sh 2.5.0-cdh5.3.2 hdfs dfsadmin -shutdownDatanode <DATANODE_HOST>:50020 upgrade (停掉Datanode)
+2. ./run.sh 2.5.0-cdh5.3.2 hdfs dfsadmin -getDatanodeInfo <DATANODE_HOST>:50020 (确保DataNode停掉)
 3. ./run.sh 2.6.0-cdh5.10.0 datanode (升级重启datanode)
 4. ./run.sh 2.6.0-cdh5.10.0 nodemanager (升级重启nodemanager)
 
@@ -72,7 +73,7 @@
 
 ## 4. 升级所有Slave节点的DataNode和NodeManager (同理)
 
-## 5. 升级resourcemanager
+## 5. 升级ResourceManager
 
 ### 步骤
 1. ./run.sh 2.6.0-cdh5.10.0 resourcemanager (升级重启standby resourcemanager)
@@ -83,7 +84,7 @@
 2. mr任务跑成功 (cdh5.3.2客户端)
 3. resourcemanager切换后，之前运行的任务不挂掉
 
-## 6. 升级timelineserver、historyserver
+## 6. 升级TimelineServer、HistoryServer
 
 ### 步骤
 1. ./run.sh 2.6.0-cdh5.10.0 timelineserver (升级重启timelineserver)
@@ -104,3 +105,84 @@
 2. mr任务跑成功 (cdh5.3.2与cdh5.10.0客户端)
 3. 之前运行的任务不挂掉
 4. MR任务日志可以查看
+
+# 三、降级至cdh5.3.2
+
+## 1. 降级2台Slave节点的DataNode和NodeManager
+
+### 步骤
+
+1. ./run.sh 2.6.0-cdh5.10.0 hdfs dfsadmin -shutdownDatanode <DATANODE_HOST>:50020 upgrade (停掉Datanode)
+2. ./run.sh 2.6.0-cdh5.10.0 hdfs dfsadmin -getDatanodeInfo <DATANODE_HOST>:50020 (确保DataNode停掉)
+3. ./run.sh 2.5.0-cdh5.3.2 datanode (降级重启datanode)
+4. ./run.sh 2.5.0-cdh5.3.2 nodemanager (降级重启nodemanager)
+
+## 2. 降级所有Slave节点的DataNode和NodeManager (同理)
+
+## 3. 降级NameNode - ns1
+
+### 步骤
+
+1. ./run.sh 2.5.0-cdh5.3.2 namenode (降级重启standby namenode)
+2. ./run.sh 2.5.0-cdh5.3.2 namenode (降级重启active namenode)
+3. ./run.sh 2.5.0-cdh5.3.2 hdfs dfsadmin -Dfs.defaultFS=hdfs://ns1 -rollingUpgrade finalize (提交降级)
+
+## 4. 降级NameNode - ns2 (同理)
+
+## 5. 降级ResourceManager
+
+### 步骤
+
+1. ./run.sh 2.5.0-cdh5.3.2 resourcemanager (降级重启standby resourcemanager)
+2. ./run.sh 2.5.0-cdh5.3.2 resourcemanager (降级重启active resourcemanager)
+
+## 6. 降级TimelineServer、HistoryServer
+
+### 步骤
+
+1. ./run.sh 2.5.0-cdh5.3.2 timelineserver (降级重启timelineserver)
+2. ./run.sh 2.5.0-cdh5.3.2 historyserver (降级重启historyserver)
+
+# 四、回滚至cdh5.3.2（停机群）
+
+## 1. 停掉所有Slave节点的DataNode和NodeManager 
+
+### 步骤
+
+1. docker kill datanode
+2. docker kill nodemanager
+
+## 2. 回滚NameNode - ns1
+
+### 步骤
+
+1. docker kill namenode (master1, master2)
+
+2. ./run.sh 2.5.0-cdh5.3.2 namenode [-rollingUpgrade rollback](http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsRollingUpgrade.html#namenode_-rollingUpgrade) (回滚重启active namenode)
+
+3. ./run.sh 2.5.0-cdh5.3.2 bootstrapStandby (standby从active同步)
+
+4. ./run.sh 2.5.0-cdh5.3.2 namenode (回滚重启standby namenode)
+
+### 3. 回滚NameNode - ns2 (同理)
+
+## 4. 回滚ResourceManager
+
+### 步骤
+
+1. ./run.sh 2.5.0-cdh5.3.2 resourcemanager (回滚重启standby resourcemanager)
+2. ./run.sh 2.5.0-cdh5.3.2 resourcemanager (回滚重启active resourcemanager)
+
+## 5. 回滚TimelineServer、HistoryServer
+
+### 步骤
+
+1. ./run.sh 2.5.0-cdh5.3.2 timelineserver (回滚重启timelineserver)
+2. ./run.sh 2.5.0-cdh5.3.2 historyserver (回滚重启historyserver)
+
+## 6. 回滚所有Slave节点的DataNode和NodeManager
+
+### 步骤
+
+1. ./run.sh 2.5.0-cdh5.3.2 datanode -rollback (回滚重启datanode)
+2. ./run.sh 2.5.0-cdh5.3.2 nodemanager (回滚重启datanode)
